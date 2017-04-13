@@ -1,13 +1,13 @@
 <?php
- include 'Registration.php';
+ include 'RegistrationComponent.php';
 ?>
 <html>
 <head>
-    <title>PHP Test</title>
+    <title>News letter registration</title>
 </head>
 <body>
 <?php
-$registration = new Treehouse\Registration("POST", "RegistrationController");
+$registration = new Treehouse\RegistrationComponent("POST", "RegistrationController");
 $registration->displayForm();
 ?>
 </body>
