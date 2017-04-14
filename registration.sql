@@ -15,6 +15,7 @@ CREATE TABLE IF NOT EXISTS `registrations` (
     `id` int NOT NULL auto_increment,
     `name` varchar(255) NOT NULL,
     `email` varchar(255) UNIQUE NOT NULL,
+    `date_registered` TIMESTAMP NOT NULL DEFAULT NOW(),
     PRIMARY KEY (`id`),
     UNIQUE (`email`)
 ) ENGINE=InnoDB;

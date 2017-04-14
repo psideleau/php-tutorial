@@ -3,7 +3,7 @@ require_once('../simpletest/autorun.php');
 require_once('../RegistrationRepository.php');
 require_once('../Registration.php');
 
-class RegistrationComponentTest extends UnitTestCase
+class RegistrationRepositoryTest extends UnitTestCase
 {
     private $db;
     private $repository;
@@ -19,8 +19,18 @@ class RegistrationComponentTest extends UnitTestCase
         }
 
         $this->repository = new Treehouse\RegistrationRepository();
-        $this->name = uniqid();
-        $this->email = uniqid() . "@test.com";
+
+        $data = $this->generateNameAndEmail();
+        $this->name = $data['name'];
+        $this->email = $data['email'];
+    }
+
+    function generateNameAndEmail()
+    {
+        return [
+            "email" => uniqid() . "@test.com",
+            "name" => uniqid(),
+        ];
     }
 
     function tearDown()
@@ -38,10 +48,42 @@ class RegistrationComponentTest extends UnitTestCase
 
     public function testShouldCreateRegistration()
     {
-        $registration = new Treehouse\Registration($this->name, $this->email);
+        $registration = new Treehouse\Registration($this->name, $this->email, null);
         $this->repository->saveRegistration($registration);
+
+        $stmt = $this->db->prepare("select name, email, date_registered from Registrations where email = ?");
+        $stmt->bind_param("s", $this->email);
+
+        $stmt->execute();
+
+        mysqli_stmt_bind_result($stmt, $rowName, $rowEmail, $dateRegistered);
+        mysqli_stmt_fetch($stmt);
+        $stmt->close();
+
+
+        $this->assertEqual($this->name, $rowName);
+        $this->assertEqual($this->email, $rowEmail);
+        $this->assertNotNull($dateRegistered);
     }
 
+    public function testShouldReturnRegistrations() {
+        $registrationFirst = new Treehouse\Registration($this->name, $this->email);
+
+        $data = $this->generateNameAndEmail();
+        $registrationLast = new Treehouse\Registration($data['name'], $data['email']);
+
+        $this->repository->saveRegistration($registrationFirst);
+        sleep(1);
+        $this->repository->saveRegistration($registrationLast);
+
+        $registrations = $this->repository->findRegistrations();
+
+        $this->assertEqual($registrations[0]->getName(),  $registrationLast->getName());
+        $this->assertEqual($registrations[0]->getEmail(), $registrationLast->getEmail());
+        $this->assertEqual($registrations[1]->getName(),  $registrationFirst->getName());
+        $this->assertEqual($registrations[1]->getEmail(), $registrationFirst->getEmail());
+
+    }
 }
 
 ?>

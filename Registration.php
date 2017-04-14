@@ -13,13 +13,14 @@ class Registration
 {
     private $name;
     private $email;
+    private $dateRegistered;
 
-    public function __construct($name, $email)
+    public function __construct($name, $email, $dateRegistered = null)
     {
         $this->name = $name;
         $this->email = $email;
+        $this->dateRegistered = $dateRegistered;
     }
-
 
     public function getName()
     {
@@ -30,5 +31,11 @@ class Registration
     {
         return $this->email;
     }
+
+    public function getDateRegistered()
+    {
+        return $this->dateRegistered;
+    }
+
 
 }
