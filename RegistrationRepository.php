@@ -1,39 +1,42 @@
 <?php
-  include 'Registration.php'
-/**
- * Created by PhpStorm.
- * User: paulsideleau
- * Date: 4/11/17
- * Time: 8:08 PM
- */
-
 namespace Treehouse;
-
+include('Registration.php');
 
 class RegistrationRepository
 {
+    function __construct()
+    {
+    }
 
     public function saveRegistration(Registration $registration)
     {
-        $db = new mysqli('localhost', 'registration', 'make_me_a_proper_password', 'newsletter');
+        $db = new \mysqli('localhost', 'registration', 'make_me_a_proper_password', 'newsletter');
 
         if ($db->connect_errno > 0) {
             throw new Exception('Unable to connect to database [' . $db->connect_error . ']');
         }
 
-        try {
+        try
+        {
+            $name = $registration->getName();
+            $email = $registration->getEmail();
             $stmt = $db->prepare("INSERT INTO Registrations (name, email) VALUES (?, ?)");
-            $stmt->bind_param("ss", $registration->getName(), $registration->getEmail());
+            $stmt->bind_param("ss", $name, $email);
+
             $success = $stmt->execute();
 
-            if ($success) {
-                echo "THIS ISW WORKING $success";
+            if (!$success)
+            {
+                throw new Exception("Insert failed");
             }
 
             $stmt->close();
         }
-        finally {
-            $db->close(
+        finally
+        {
+            $db->close();
+        }
     }
 
 }
+?>

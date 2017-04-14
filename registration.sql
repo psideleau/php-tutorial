@@ -1,4 +1,5 @@
 CREATE USER 'registration'@'localhost' IDENTIFIED BY 'make_me_a_proper_password';
+CREATE USER 'integrationtest'@'localhost' IDENTIFIED BY 'test';
 
 CREATE DATABASE IF NOT EXISTS `newsletter` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
 USE `newsletter`;
@@ -19,3 +20,4 @@ CREATE TABLE IF NOT EXISTS `registrations` (
 ) ENGINE=InnoDB;
 
 GRANT select,insert ON newsletter.registrations TO 'registration'@'localhost';
+GRANT select,insert,update,delete ON newsletter.registrations TO 'integrationtest'@'localhost';

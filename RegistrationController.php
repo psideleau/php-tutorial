@@ -12,4 +12,8 @@ namespace Treehouse;
 class RegistrationController
 {
 
+    public void register() {
+
+}
+
 }
