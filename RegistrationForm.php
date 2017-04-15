@@ -7,7 +7,7 @@
 </head>
 <body>
 <?php
-$registration = new Treehouse\RegistrationComponent("POST", "RegistrationController");
+$registration = new Treehouse\RegistrationComponent("POST", "RegistrationControllerPost.php");
 $registration->displayForm();
 ?>
 </body>

@@ -2,7 +2,12 @@
 namespace Treehouse;
 include('Registration.php');
 
-class RegistrationRepository
+interface iRegistrationRepository
+{
+    public function saveRegistration(Registration $registration);
+}
+
+class RegistrationRepository implements iRegistrationRepository
 {
     function __construct()
     {
@@ -20,7 +25,7 @@ class RegistrationRepository
 
             if (!$success)
             {
-                throw new Exception("Insert failed");
+                throw new \Exception("Insert failed");
             }
 
             $stmt->close();

@@ -1,19 +1,31 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: paulsideleau
- * Date: 4/11/17
- * Time: 8:13 PM
- */
-
 namespace Treehouse;
+require_once('RegistrationRepository.php');
 
+interface iConfirmationView
+{
+    public function showConfirmationPage();
+}
 
 class RegistrationController
 {
+    private $registrationRepository;
+    private $confirmationPage;
 
-    public void register() {
+    public function __construct($registrationRepository, $confirmationPage)
+    {
+        $this->registrationRepository = $registrationRepository;
+        $this->confirmationPage = $confirmationPage;
+    }
+
+    public function register()
+    {
+        $registration = new \Treehouse\Registration($_POST["name"], $_POST["email"]);
+
+        $this->registrationRepository->saveRegistration($registration);
+
+        $this->confirmationPage->showConfirmationPage();
+    }
 
 }
 
-}

@@ -60,7 +60,6 @@ class RegistrationRepositoryTest extends UnitTestCase
         mysqli_stmt_fetch($stmt);
         $stmt->close();
 
-
         $this->assertEqual($this->name, $rowName);
         $this->assertEqual($this->email, $rowEmail);
         $this->assertNotNull($dateRegistered);
@@ -80,9 +79,11 @@ class RegistrationRepositoryTest extends UnitTestCase
 
         $this->assertEqual($registrations[0]->getName(),  $registrationLast->getName());
         $this->assertEqual($registrations[0]->getEmail(), $registrationLast->getEmail());
+        $this->assertNotNull($registrations[0]->getDateRegistered());
+
         $this->assertEqual($registrations[1]->getName(),  $registrationFirst->getName());
         $this->assertEqual($registrations[1]->getEmail(), $registrationFirst->getEmail());
-
+        $this->assertNotNull($registrations[1]->getDateRegistered());
     }
 }
 
