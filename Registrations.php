@@ -1,7 +1,21 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: paulsideleau
- * Date: 4/11/17
- * Time: 8:22 PM
- */
+namespace Treehouse;
+include ('RegistrationRepository.php');
+
+$registrationRepository = new RegistrationRepository();
+$registrations = $registrationRepository->findRegistrations();
+?>
+
+<html>
+    <table>
+        <?php
+        foreach ($registrations as $registration) {
+            echo '<tr>';
+            echo '<td>'.$registration->getName().'</td>';
+            echo '<td>'.$registration->getEmail().'</td>';
+            echo '<td>'.$registration->getDateRegistered().'</td>';
+            echo '</tr>';
+         }
+        ?>
+    </table>
+</html>
