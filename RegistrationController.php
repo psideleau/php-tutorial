@@ -20,6 +20,7 @@ class RegistrationController
 
     public function register()
     {
+        print_r($_POST);
         $registration = new \Treehouse\Registration($_POST["name"], $_POST["email"]);
 
         $this->registrationRepository->saveRegistration($registration);
