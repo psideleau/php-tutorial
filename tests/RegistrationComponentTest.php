@@ -15,16 +15,15 @@ class RegistrationComponentTest extends UnitTestCase {
 
     public function testFormIsCreatedCorrectlyWithValidation() {
         $this->registration->enableValidation(true);
-        $this->assertEqual("<form method=\"$this->method\" action=\"$this->action\">",
+        $this->assertEqual("<form class=\"form\" method=\"$this->method\" action=\"$this->action\">",
                            $this->registration->createFormElement());
     }
 
     public function testFormIsCreatedCorrectlyWithNoValidation() {
         $this->registration->enableValidation(false);
-        $this->assertEqual("<form method=\"$this->method\" action=\"$this->action\" novalidate>",
+        $this->assertEqual("<form class=\"form\" method=\"$this->method\" action=\"$this->action\" novalidate>",
                            $this->registration->createFormElement());
     }
-
 }
 
 ?>

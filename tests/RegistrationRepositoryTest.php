@@ -72,11 +72,15 @@ class RegistrationRepositoryTest extends UnitTestCase
         $registrationLast = new Treehouse\Registration($data['name'], $data['email']);
 
         $this->repository->saveRegistration($registrationFirst);
+
+        // sleeping to verify search results will be in descending order.  TODO refactor and see if better way of doing
+        // this such as by passing clock into the repository
         sleep(1);
         $this->repository->saveRegistration($registrationLast);
 
         $registrations = $this->repository->findRegistrations();
 
+        // search results should be in descending order
         $this->assertEqual($registrations[0]->getName(),  $registrationLast->getName());
         $this->assertEqual($registrations[0]->getEmail(), $registrationLast->getEmail());
         $this->assertNotNull($registrations[0]->getDateRegistered());

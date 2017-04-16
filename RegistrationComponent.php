@@ -18,18 +18,22 @@ class RegistrationComponent
 
     function createFormElement() {
         $noValidateHtml5 = $this->validate ? "" : " novalidate";
-        return "<form method=\"$this->method\" action=\"$this->action\"$noValidateHtml5>";
+        return "<form class=\"form\" method=\"$this->method\" action=\"$this->action\"$noValidateHtml5>";
     }
 
     function displayForm() {
         $form = $this->createFormElement();
         echo <<<EOD
         $form
-           <label for="name">Name</label>
-           <input type="text" name="name" id="name" required maxlength="100">
-           <label for="name">email</label>
-           <input type="email" name="email" id="email" required>
-           <input type="submit" name="submit" value="Log In"/>
+           <div class="form-group">
+               <label for="name">Name:</label>
+               <input type="text" name="name" id="name" required maxlength="100">
+           </div>
+           <div class="form-group">
+               <label class="control-label" for="name">Email:</label>
+               <input type="email" name="email" id="email" required>
+           </div>
+           <input type="submit" name="submit" value="Register" class="btn btn-primary"/>
         </form>
 EOD;
 

@@ -1,13 +1,5 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: paulsideleau
- * Date: 4/13/17
- * Time: 12:45 AM
- */
-
 namespace Treehouse;
-
 
 class Registration
 {
@@ -36,6 +28,4 @@ class Registration
     {
         return $this->dateRegistered;
     }
-
-
 }

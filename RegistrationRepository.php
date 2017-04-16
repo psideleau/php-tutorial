@@ -9,10 +9,6 @@ interface iRegistrationRepository
 
 class RegistrationRepository implements iRegistrationRepository
 {
-    function __construct()
-    {
-    }
-
     public function saveRegistration(Registration $registration)
     {
         $this->executeQuery(function ($db) use ($registration) {
@@ -35,6 +31,8 @@ class RegistrationRepository implements iRegistrationRepository
     public function findRegistrations()
     {
 
+        // TODO do pagination b/c returning all the records from a database table can be a huge performance and usability
+        // issue.
        return $this->executeQuery(function ($db)  {
             $name = "";
             $email = "";
@@ -69,12 +67,10 @@ class RegistrationRepository implements iRegistrationRepository
         }
     }
 
-
-    /**
-     * @return \mysqli
-     */
     private function getConnection(): \mysqli
     {
+        // TODO read password from secure location such as a vault along with making this a secure password
+        // this is too easy to hack
         $db = new \mysqli('localhost', 'registration', 'make_me_a_proper_password', 'newsletter');
 
         if ($db->connect_errno > 0) {
@@ -82,6 +78,5 @@ class RegistrationRepository implements iRegistrationRepository
         }
         return $db;
     }
-
 }
 ?>

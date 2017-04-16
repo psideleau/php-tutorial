@@ -20,8 +20,8 @@ class RegistrationController
 
     public function register()
     {
-        print_r($_POST);
-        $registration = new \Treehouse\Registration($_POST["name"], $_POST["email"]);
+        // TODO add server side validation. Can never rely on just front-end since it can be bypassed
+        $registration = new Registration($_POST["name"], $_POST["email"]);
 
         $this->registrationRepository->saveRegistration($registration);
 
@@ -29,4 +29,3 @@ class RegistrationController
     }
 
 }
-

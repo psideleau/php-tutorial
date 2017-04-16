@@ -7,6 +7,7 @@ $confirmationPage = (new class implements iConfirmationView
 {
     public function showConfirmationPage()
     {
+        // simple design choice - redirecting will guard against a duplicate submission
         header('Location: ' . 'RegistrationConfirmation.html', true, 302);
         die();
     }
