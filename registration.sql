@@ -1,5 +1,5 @@
-CREATE USER 'registration'@'localhost' IDENTIFIED BY 'make_me_a_proper_password';
-CREATE USER 'integrationtest'@'localhost' IDENTIFIED BY 'test';
+CREATE USER IF NOT EXISTS 'registration'@'localhost' IDENTIFIED BY 'make_me_a_proper_password';
+CREATE USER IF NOT EXISTS 'integrationtest'@'localhost' IDENTIFIED BY 'test';
 
 CREATE DATABASE IF NOT EXISTS `newsletter` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
 USE `newsletter`;
